@@ -14,8 +14,7 @@ public final class Autos {
   /** Example static factory for an autonomous command. */
   public static CommandBase FowardFor3Secs(Drivebase m_db) {
     return Commands.sequence(
-      m_db.forward(1.0),
-      new WaitCommand(3.0), 
+      m_db.forward(1.0).withTimeout(3), 
       m_db.forward(0.0)
       );
   }
