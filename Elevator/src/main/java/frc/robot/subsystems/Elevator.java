@@ -40,6 +40,9 @@ public class Drivebase extends SubsystemBase {
   //PID 
   PIDController m_PIDController = new PIDController(1, 0.1, 0.1);
 
+  public static double getHeight(){
+    return revThroughBoreEncoder.getPosition();
+  }
 
   /**
    * Example command factory method.
@@ -51,7 +54,7 @@ public class Drivebase extends SubsystemBase {
     // Subsystem::RunOnce implicitly requires `this` subsystem.
     return runOnce(
         () -> {
-          motor.set(m_PIDController.calculate(double measurement, desiredHeight));
+          motor.set(m_PIDController.calculate(getHeight(), desiredHeight));
         });
   }  
   //  public CommandBase elevatorMax() {
@@ -93,7 +96,7 @@ public class Drivebase extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Height", );
+    SmartDashboard.putNumber("Height", getHeight());
     Smartdashboard.putData("Max height reached", limitSwitch.isPressed());
   }
 
